@@ -52,26 +52,32 @@ A successful response (even an empty list) confirms the setup is complete.
 ~/.openclaw/
 ├── skills/
 │   ├── notebooklm-intake/
-│   │   ├── SKILL.md
-│   │   ├── REPLICATION-GUIDE.md
+│   │   ├── SKILL.md              ← Skill instructions (Chinese)
+│   │   ├── SKILL_EN.md           ← Skill instructions (English)
+│   │   ├── REPLICATION-GUIDE.md  ← Replication guide (Chinese)
+│   │   ├── REPLICATION-GUIDE_EN.md ← Replication guide (English)
 │   │   └── scripts/
-│   │       └── intake.py              ← Core intake script
+│   │       └── intake.py         ← Core intake script
 │   └── notebooklm-output/
-│       ├── SKILL.md
-│       ├── REPLICATION-GUIDE.md
+│       ├── SKILL.md              ← Skill instructions (Chinese)
+│       ├── SKILL_EN.md           ← Skill instructions (English)
+│       ├── REPLICATION-GUIDE.md  ← Replication guide (Chinese)
+│       ├── REPLICATION-GUIDE_EN.md ← Replication guide (English)
 │       └── scripts/
-│           ├── output.py              ← Core output script
+│           ├── output.py         ← Core output script
 │           └── vendor/
-│               ├── d3.min.js          ← D3.js (mind-map rendering dependency)
+│               ├── d3.min.js     ← D3.js (mind-map rendering dependency)
 │               └── markmap-view.min.js ← Markmap (mind-map rendering dependency)
 └── knowledge/
     └── notebooklm/
-        ├── inbox/                     ← Place materials to upload here
-        ├── processed/                 ← Auto-archived after successful upload
-        ├── projects/                  ← Per-project local metadata
-        ├── output/                    ← Root directory for all outputs
-        └── registry.json              ← Master index
+        ├── inbox/                ← Place materials to upload here
+        ├── processed/            ← Auto-archived after successful upload
+        ├── projects/             ← Per-project local metadata
+        ├── output/               ← Root directory for all outputs
+        └── registry.json         ← Master index
 ```
+
+> Scripts automatically detect the `.openclaw` root directory based on their own location — no manual path configuration needed. You can also override it with the `OPENCLAW_HOME` environment variable.
 
 ---
 
@@ -93,19 +99,19 @@ A successful response (even an empty list) confirms the setup is complete.
 ### Batch intake (scan entire inbox)
 
 ```powershell
-python C:\Users\<your-username>\.openclaw\skills\notebooklm-intake\scripts\intake.py
+python ~/.openclaw/skills/notebooklm-intake/scripts/intake.py
 ```
 
 ### Specify a single file or directory
 
 ```powershell
-python ...\intake.py --path "<file or directory path>"
+python ~/.openclaw/skills/notebooklm-intake/scripts/intake.py --path "<file or directory path>"
 ```
 
 ### Archive confirmed duplicates
 
 ```powershell
-python ...\intake.py --archive-duplicates
+python ~/.openclaw/skills/notebooklm-intake/scripts/intake.py --archive-duplicates
 ```
 
 ## Output Format
@@ -177,6 +183,7 @@ Each uploaded material is recorded in `projects/<project-name>/project.json`:
 - JSON types (quiz, flashcards, mind-map) are automatically converted to **interactive HTML files**
 - Pops up a local GUI progress window with real-time task status
 - Media types (audio, video) use a dedicated polling download strategy to work around a known CLI bug
+- **Bilingual UI support** (`--language zh` / `--language en`)
 
 ## Supported Output Types
 
@@ -197,19 +204,22 @@ Each uploaded material is recorded in `projects/<project-name>/project.json`:
 ### Inspect a project
 
 ```powershell
-python C:\Users\<your-username>\.openclaw\skills\notebooklm-output\scripts\output.py inspect --project "<project-name>"
+python ~/.openclaw/skills/notebooklm-output/scripts/output.py inspect --project "<project-name>"
 ```
 
-### Generate output
+### Generate output (English)
 
 ```powershell
-python ...\output.py generate --project "<project-name>" --type "<output-type>"
+python ~/.openclaw/skills/notebooklm-output/scripts/output.py generate --project "<project-name>" --type "<output-type>" --language en
 ```
 
-For example:
+### Generate output (Chinese, default)
+
 ```powershell
-python ...\output.py generate --project "my-research-project" --type "report"
+python ~/.openclaw/skills/notebooklm-output/scripts/output.py generate --project "<project-name>" --type "<output-type>"
 ```
+
+The `--language` flag controls: GUI text, output filename labels, HTML page text, and cloud-generated content language.
 
 ## Split Task Flow
 
@@ -228,14 +238,14 @@ The script automatically selects different execution paths based on output type:
 
 ## GUI Progress Window
 
-A Tkinter progress window (620×320, always-on-top) automatically appears during generation, displaying:
+A Tkinter progress window (620x320, always-on-top) automatically appears during generation, displaying:
 
 - Project name, output type
 - Current phase, task ID
 - Status, save path
 - Elapsed time, error messages
 
-The window auto-closes after task completion (5s delay on success, 8s on failure).
+The window language switches with the `--language` flag. The window auto-closes after task completion (5s delay on success, 8s on failure).
 
 ## JSON → HTML Auto-Conversion
 
@@ -247,7 +257,7 @@ The window auto-closes after task completion (5s delay on success, 8s on failure
 | flashcards | 3D flip effect, keyboard shortcuts (space to flip, arrow keys to navigate), progress display |
 | mind-map | Markmap interactive tree, expand/collapse/fit-to-window, fully offline-capable |
 
-The mind-map HTML inlines D3.js and Markmap libraries, making the generated file **fully self-contained** — no network required to open.
+The mind-map HTML inlines D3.js and Markmap libraries, making the generated file **fully self-contained** — no network required to open. HTML button text also switches between Chinese and English with `--language`.
 
 ## Timeout Configuration
 
@@ -263,18 +273,21 @@ The mind-map HTML inlines D3.js and Markmap libraries, making the generated file
 {project-name}-{type-label}-{YYYY-MM-DD_HH-MM}{extension}
 ```
 
-For example: `my-research-project-报告-2026-04-07_14-30.md`
+- Chinese (default): `my-project-报告-2026-04-07_14-30.md`
+- English (`--language en`): `my-project-Report-2026-04-07_14-30.md`
 
 ---
 
 ## Replication on a New Machine
 
-Each skill has its own replication guide with complete file contents, path substitution instructions, and smoke test procedures:
+Each skill has its own replication guide (bilingual) with complete file contents, deployment steps, and smoke test procedures:
 
-- **intake**: [`notebooklm-intake/REPLICATION-GUIDE.md`](notebooklm-intake/REPLICATION-GUIDE.md)
-- **output**: [`notebooklm-output/REPLICATION-GUIDE.md`](notebooklm-output/REPLICATION-GUIDE.md)
+- **intake**: [Chinese](notebooklm-intake/REPLICATION-GUIDE.md) | [English](notebooklm-intake/REPLICATION-GUIDE_EN.md)
+- **output**: [Chinese](notebooklm-output/REPLICATION-GUIDE.md) | [English](notebooklm-output/REPLICATION-GUIDE_EN.md)
 
 Replication order: **intake first, then output** (output depends on project data created by intake).
+
+> Scripts automatically detect the deployment path — just place them under the standard directory structure, no manual code changes needed.
 
 ---
 
@@ -286,3 +299,7 @@ Both skills have reached MVP status with real cloud workflows verified:
 - **output**: All 9 output types tested with real cloud generation + download
 
 This is a personally tested version. If you encounter any issues, feel free to [open an Issue](../../issues) — updates and maintenance will be provided periodically.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
