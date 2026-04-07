@@ -10,9 +10,29 @@ import tkinter as tk
 from datetime import datetime, UTC
 from pathlib import Path
 from typing import Any
+import os
 import re
 
-KNOWLEDGE_ROOT = Path(r"C:\Users\<username>\.openclaw\knowledge")
+
+def _resolve_knowledge_root() -> Path:
+    """Resolve knowledge root: env var > auto-detect > home default."""
+    # 1. Honour explicit environment variable
+    env = os.environ.get("OPENCLAW_HOME")
+    if env:
+        return Path(env) / "knowledge"
+    # 2. Auto-detect from script location (.openclaw/skills/xxx/scripts/output.py)
+    try:
+        openclaw_dir = Path(__file__).resolve().parents[3]
+        candidate = openclaw_dir / "knowledge"
+        if candidate.is_dir():
+            return candidate
+    except (IndexError, OSError):
+        pass
+    # 3. Fall back to ~/.openclaw/knowledge
+    return Path.home() / ".openclaw" / "knowledge"
+
+
+KNOWLEDGE_ROOT = _resolve_knowledge_root()
 REGISTRY_PATH = KNOWLEDGE_ROOT / "notebooklm" / "registry.json"
 DEFAULT_TYPES = [
     "audio-overview",

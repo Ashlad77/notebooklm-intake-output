@@ -86,9 +86,7 @@ OPENCLAW_HOME/
         └── registry.json   ← 总索引（初始为 {"projects": []}）
 ```
 
-**重要**：以下所有文件内容中出现的硬编码路径 `C:\Users\<username>\.openclaw\` 需要替换为目标用户的实际 `OPENCLAW_HOME` 路径。具体替换位置：
-- `SKILL.md` 中的所有路径
-- `scripts/intake.py` 中的 `KNOWLEDGE_ROOT` 变量（第 15 行）
+**注意**：`scripts/intake.py` 已改为自动检测路径（基于脚本位置推算 `.openclaw` 根目录），无需手动修改 `KNOWLEDGE_ROOT`。只要按上述目录结构部署到 `~/.openclaw/` 下即可。`SKILL.md` 中的路径也已使用 `<OPENCLAW_HOME>` 占位符，无需替换。
 
 ---
 
