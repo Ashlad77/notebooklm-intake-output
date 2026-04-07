@@ -2,6 +2,8 @@
 
 把本地资料批量或单个同步到 [NotebookLM](https://notebooklm.google.com/) 云端，并在本地维护项目映射与状态记录。
 
+> 本项目基于 [@teng-lin](https://github.com/teng-lin) 的 [notebooklm-py](https://github.com/teng-lin/notebooklm-py) 构建。该项目提供了 NotebookLM 的非官方 Python API 与 CLI，`notebooklm-intake` 的整个云端上传链路均依赖其接口。
+
 ---
 
 ## 简介
@@ -163,14 +165,6 @@ python ...\intake.py --archive-duplicates
 - 路径替换说明
 - Smoke test 流程
 - 复刻完成检查清单
-
----
-
-## 参考来源
-
-本项目基于 [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py) 构建。
-
-[notebooklm-py](https://github.com/teng-lin/notebooklm-py) 提供了通过 Python 和 CLI 与 NotebookLM 云端通信的能力，包括认证、创建 notebook、上传 source、查询列表等核心操作。`notebooklm-intake` 的整个上传链路均依赖该项目提供的接口。
 
 ---
 
