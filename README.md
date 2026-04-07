@@ -8,7 +8,7 @@
 
 ## 简介
 
-本仓库包含两个面向 [OpenClaw](https://github.com/Ashlad77) 的 Claude Code skill：
+本仓库包含两个面向 [OpenClaw](https://github.com/Ashlad77) 的 skill：
 
 | Skill | 用途 |
 |-------|------|
