@@ -300,6 +300,18 @@ Both skills have reached MVP status with real cloud workflows verified:
 
 This is a personally tested version. If you encounter any issues, feel free to [open an Issue](../../issues) — updates and maintenance will be provided periodically.
 
+## Acknowledgements
+
+- This project is built on top of
+  [teng-lin/notebooklm-py](https://github.com/teng-lin/notebooklm-py),  
+  which provides an unofficial Python API and CLI for NotebookLM.  
+  All intake/output cloud communication relies on its interfaces.
+- Some of the design ideas and implementation details for interacting
+  with NotebookLM are inspired by and adapted from that project.
+  Specific sources are noted in the corresponding code comments.
+- Many thanks to @teng-lin for the great work on notebooklm-py
+  and for pushing the NotebookLM ecosystem forward.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
