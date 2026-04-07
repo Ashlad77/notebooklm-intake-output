@@ -45,29 +45,182 @@ DEFAULT_TYPES = [
     "mind-map",
     "data-table",
 ]
-DEFAULT_LANGUAGE = "zh_Hans"
 GUI_REFRESH_SECONDS = 5
+
+# ---------- i18n strings ----------
+
+_STRINGS: dict[str, dict[str, str]] = {
+    "zh": {
+        # TYPE_LABELS
+        "report": "报告", "quiz": "测验", "flashcards": "抽认卡",
+        "mind-map": "脑图", "infographic": "信息图",
+        "audio-overview": "音频总结", "video-overview": "视频总结",
+        "slide-deck": "幻灯片", "data-table": "数据表",
+        # GUI
+        "win_title": "NotebookLM 输出进度",
+        "preparing": "准备中", "waiting": "等待开始",
+        "elapsed_fmt": "{} 秒",
+        "lbl_project": "项目", "lbl_type": "输出类型",
+        "lbl_phase": "当前阶段", "lbl_task": "任务 ID",
+        "lbl_status": "状态", "lbl_path": "保存路径",
+        "lbl_elapsed": "已耗时", "lbl_error": "错误",
+        "label_sep": "：",
+        # status messages
+        "submitted": "任务已提交，云端开始生成",
+        "waiting_cli": "正在等待 CLI 返回任务信息…",
+        "generating": "生成中",
+        "no_task_id": "CLI 未返回 task_id，将尝试直接下载最新产物",
+        "generating_wait": "生成中（等待云端完成）",
+        "timeout_threshold": "超时阈值 {} 秒",
+        "gen_done": "生成完成",
+        "gen_ended": "生成结束（{}）",
+        "wait_timeout": "等待超时",
+        "wait_exceeded": "本地等待超过 {} 秒，云端任务可能仍在进行",
+        "cloud_gen": "云端生成中，等待产物就绪",
+        "poll_info": "每 {} 秒尝试下载，超时 {} 秒",
+        "initial_wait": "云端生成中，{} 秒后开始检查",
+        "poll_exceeded": "超过 {} 秒仍未下载成功",
+        "try_download": "尝试下载（第 {} 次）",
+        "remaining": "剩余 {} 秒",
+        "completed": "已完成",
+        "not_ready": "产物尚未就绪，{} 秒后重试",
+        "download_fail": "第 {} 次下载未成功，云端可能仍在处理",
+        "downloading": "下载中",
+        "prep_context": "准备上下文",
+        "manual_download": "云端可能已完成但下载未成功，请在网页端确认后手动下载",
+        "timeout_no_download": "超时未能下载",
+        "convert_done": "已转译为 HTML",
+        "convert_fail_phase": "下载完成（转译失败）",
+        "convert_fail": "转译失败：{}",
+        "cmd_timeout": "命令超时（{}秒）: {}",
+        "failed": "失败",
+        "unnamed": "未命名项目",
+        # HTML - quiz
+        "html_lang": "zh-Hans",
+        "quiz_title_default": "测验",
+        "submit_all": "提交全部答案", "retry": "重新答题",
+        "q_counter": "第 {} / {} 题",
+        "hint_prefix": "💡 提示：",
+        "correct_prefix": "✅ 正确答案：",
+        "wrong_prefix": "❌ 你选的 ",
+        "accuracy": "正确率 {}%",
+        # HTML - flashcards
+        "fc_title_default": "抽认卡",
+        "fc_front": "正面", "fc_back": "背面",
+        "fc_prev": "&#9664; 上一张", "fc_flip": "翻面", "fc_next": "下一张 &#9654;",
+        "fc_tip": "点击卡片或按空格键翻面，按左右方向键切换",
+        # HTML - mind map
+        "mm_title_default": "思维导图",
+        "mm_fit": "适应窗口", "mm_expand": "全部展开", "mm_collapse": "全部收起",
+    },
+    "en": {
+        "report": "Report", "quiz": "Quiz", "flashcards": "Flashcards",
+        "mind-map": "Mind Map", "infographic": "Infographic",
+        "audio-overview": "Audio Overview", "video-overview": "Video Overview",
+        "slide-deck": "Slides", "data-table": "Data Table",
+        "win_title": "NotebookLM Output Progress",
+        "preparing": "Preparing", "waiting": "Waiting",
+        "elapsed_fmt": "{}s",
+        "lbl_project": "Project", "lbl_type": "Output Type",
+        "lbl_phase": "Phase", "lbl_task": "Task ID",
+        "lbl_status": "Status", "lbl_path": "Save Path",
+        "lbl_elapsed": "Elapsed", "lbl_error": "Error",
+        "label_sep": ":",
+        "submitted": "Task submitted, cloud generation started",
+        "waiting_cli": "Waiting for CLI to return task info...",
+        "generating": "Generating",
+        "no_task_id": "CLI returned no task_id, will try downloading latest artifact",
+        "generating_wait": "Generating (waiting for cloud)",
+        "timeout_threshold": "Timeout threshold: {}s",
+        "gen_done": "Generation complete",
+        "gen_ended": "Generation ended ({})",
+        "wait_timeout": "Wait timeout",
+        "wait_exceeded": "Local wait exceeded {}s, cloud task may still be running",
+        "cloud_gen": "Cloud generating, waiting for artifact",
+        "poll_info": "Polling every {}s, timeout {}s",
+        "initial_wait": "Cloud generating, checking in {}s",
+        "poll_exceeded": "Exceeded {}s, download unsuccessful",
+        "try_download": "Downloading (attempt {})",
+        "remaining": "{}s remaining",
+        "completed": "Completed",
+        "not_ready": "Artifact not ready, retrying in {}s",
+        "download_fail": "Attempt {} unsuccessful, cloud may still be processing",
+        "downloading": "Downloading",
+        "prep_context": "Preparing context",
+        "manual_download": "Cloud may have finished but download failed. Please check the web UI and download manually",
+        "timeout_no_download": "Timed out, download failed",
+        "convert_done": "Converted to HTML",
+        "convert_fail_phase": "Download complete (conversion failed)",
+        "convert_fail": "Conversion failed: {}",
+        "cmd_timeout": "Command timeout ({}s): {}",
+        "failed": "Failed",
+        "unnamed": "Unnamed Project",
+        "html_lang": "en",
+        "quiz_title_default": "Quiz",
+        "submit_all": "Submit All", "retry": "Retry",
+        "q_counter": "Q {} / {}",
+        "hint_prefix": "💡 Hint: ",
+        "correct_prefix": "✅ Correct answer: ",
+        "wrong_prefix": "❌ You chose ",
+        "accuracy": "Accuracy {}%",
+        "fc_title_default": "Flashcards",
+        "fc_front": "Front", "fc_back": "Back",
+        "fc_prev": "&#9664; Prev", "fc_flip": "Flip", "fc_next": "Next &#9654;",
+        "fc_tip": "Click card or press Space to flip. Use arrow keys to navigate.",
+        "mm_title_default": "Mind Map",
+        "mm_fit": "Fit Window", "mm_expand": "Expand All", "mm_collapse": "Collapse All",
+    },
+}
+
+_LANG = "zh"
+
+
+def _t(key: str) -> str:
+    """Get translated string for current language."""
+    return _STRINGS.get(_LANG, _STRINGS["zh"]).get(key, key)
+
+
+def _cli_language() -> str:
+    """Return the NotebookLM CLI --language value for current language."""
+    return "zh_Hans" if _LANG == "zh" else "en"
+
 
 # ---------- 媒体类型需要更长等待，且用分离式提交+等待 ----------
 MEDIA_TYPES = {"audio-overview", "video-overview"}
-MEDIA_WAIT_TIMEOUT = 900   # 15 分钟
+MEDIA_WAIT_TIMEOUT = 900   # 15 min
 HEAVY_TYPES = {"slide-deck", "infographic"}
-HEAVY_WAIT_TIMEOUT = 600   # 10 分钟
-DEFAULT_WAIT_TIMEOUT = 300  # 5 分钟
+HEAVY_WAIT_TIMEOUT = 600   # 10 min
+DEFAULT_WAIT_TIMEOUT = 300  # 5 min
 
 # ---------- generate 参数映射 ----------
 # 只有 CLI 真正支持的类型才附带 --language / --wait，避免子命令参数不兼容
-GENERATE_TYPE_MAP: dict[str, tuple[str, list[str]]] = {
-    "audio-overview": ("audio",      ["--format", "brief", "--language", DEFAULT_LANGUAGE]),
-    "video-overview": ("video",      ["--format", "brief", "--language", DEFAULT_LANGUAGE]),
-    "slide-deck":     ("slide-deck", ["--language", DEFAULT_LANGUAGE]),
+# NOTE: language is injected dynamically via _build_generate_args()
+GENERATE_TYPE_BASE: dict[str, tuple[str, list[str]]] = {
+    "audio-overview": ("audio",      ["--format", "brief"]),
+    "video-overview": ("video",      ["--format", "brief"]),
+    "slide-deck":     ("slide-deck", []),
     "quiz":           ("quiz",       []),
     "flashcards":     ("flashcards", []),
-    "infographic":    ("infographic",["--language", DEFAULT_LANGUAGE]),
-    "report":         ("report",     ["--format", "briefing-doc", "--language", DEFAULT_LANGUAGE]),
+    "infographic":    ("infographic",[]),
+    "report":         ("report",     ["--format", "briefing-doc"]),
     "mind-map":       ("mind-map",   []),
     "data-table":     ("data-table", ["summarize the uploaded material into a structured table"]),
 }
+
+# Types that accept --language flag
+_LANGUAGE_SUPPORTED_TYPES = {
+    "audio-overview", "video-overview", "slide-deck", "infographic", "report",
+}
+
+
+def _build_generate_args(output_type: str) -> tuple[str, list[str]]:
+    """Build generate command args, injecting --language dynamically."""
+    cmd, base_extra = GENERATE_TYPE_BASE[output_type]
+    extra = list(base_extra)
+    if output_type in _LANGUAGE_SUPPORTED_TYPES:
+        extra.extend(["--language", _cli_language()])
+    return cmd, extra
+
 
 DOWNLOAD_TYPE_MAP: dict[str, tuple[str, str, list[str]]] = {
     "audio-overview": ("audio",      ".mp3", ["--latest", "--force"]),
@@ -79,18 +232,6 @@ DOWNLOAD_TYPE_MAP: dict[str, tuple[str, str, list[str]]] = {
     "report":         ("report",     ".md",  ["--latest", "--force"]),
     "mind-map":       ("mind-map",   ".json",["--latest", "--force"]),
     "data-table":     ("data-table", ".csv", ["--latest", "--force"]),
-}
-
-TYPE_LABELS: dict[str, str] = {
-    "report": "报告",
-    "quiz": "测验",
-    "flashcards": "抽认卡",
-    "mind-map": "脑图",
-    "infographic": "信息图",
-    "audio-overview": "音频总结",
-    "video-overview": "视频总结",
-    "slide-deck": "幻灯片",
-    "data-table": "数据表",
 }
 
 
@@ -124,18 +265,17 @@ def _sanitize_filename(text: Any) -> str:
     text = re.sub(r'[\\/:*?"<>|]+', "-", text)
     text = re.sub(r'\s+', " ", text).strip()
     text = text.rstrip(". ")
-    return text or "未命名项目"
+    return text or _t("unnamed")
 
 
 def build_output_filename(project_name: str, output_type: str, ext: str) -> str:
     safe_project = _sanitize_filename(project_name)
-    type_label = TYPE_LABELS.get(output_type, output_type)
+    type_label = _t(output_type)
     safe_type = _sanitize_filename(type_label)
     return f"{safe_project}-{safe_type}-{human_stamp()}{ext}"
 
 
 def _get_wait_timeout(output_type: str) -> int:
-    """根据输出类型返回合理的等待超时秒数。"""
     if output_type in MEDIA_TYPES:
         return MEDIA_WAIT_TIMEOUT
     if output_type in HEAVY_TYPES:
@@ -146,7 +286,7 @@ def _get_wait_timeout(output_type: str) -> int:
 class ProgressWindow:
     def __init__(self, project: str, output_type: str):
         self.root = tk.Tk()
-        self.root.title("NotebookLM 输出进度")
+        self.root.title(_t("win_title"))
         self.root.geometry("620x320")
         self.root.attributes("-topmost", True)
         self.queue: queue.Queue[tuple[str, dict[str, str]]] = queue.Queue()
@@ -154,28 +294,29 @@ class ProgressWindow:
 
         self.project_var = tk.StringVar(value=project)
         self.type_var = tk.StringVar(value=output_type)
-        self.phase_var = tk.StringVar(value="准备中")
+        self.phase_var = tk.StringVar(value=_t("preparing"))
         self.task_var = tk.StringVar(value="-")
-        self.status_var = tk.StringVar(value="等待开始")
+        self.status_var = tk.StringVar(value=_t("waiting"))
         self.path_var = tk.StringVar(value="-")
-        self.elapsed_var = tk.StringVar(value="0 秒")
+        self.elapsed_var = tk.StringVar(value=_t("elapsed_fmt").format(0))
         self.error_var = tk.StringVar(value="-")
 
         frame = tk.Frame(self.root, padx=12, pady=12)
         frame.pack(fill="both", expand=True)
 
+        sep = _t("label_sep")
         rows = [
-            ("项目", self.project_var),
-            ("输出类型", self.type_var),
-            ("当前阶段", self.phase_var),
-            ("任务 ID", self.task_var),
-            ("状态", self.status_var),
-            ("保存路径", self.path_var),
-            ("已耗时", self.elapsed_var),
-            ("错误", self.error_var),
+            (_t("lbl_project"), self.project_var),
+            (_t("lbl_type"), self.type_var),
+            (_t("lbl_phase"), self.phase_var),
+            (_t("lbl_task"), self.task_var),
+            (_t("lbl_status"), self.status_var),
+            (_t("lbl_path"), self.path_var),
+            (_t("lbl_elapsed"), self.elapsed_var),
+            (_t("lbl_error"), self.error_var),
         ]
         for i, (label, var) in enumerate(rows):
-            tk.Label(frame, text=f"{label}：", anchor="w").grid(row=i, column=0, sticky="nw", pady=4)
+            tk.Label(frame, text=f"{label}{sep}", anchor="w").grid(row=i, column=0, sticky="nw", pady=4)
             tk.Label(frame, textvariable=var, anchor="w", justify="left", wraplength=460).grid(row=i, column=1, sticky="w", pady=4)
 
         self.root.protocol("WM_DELETE_WINDOW", self._on_close)
@@ -191,7 +332,7 @@ class ProgressWindow:
         if self._closed:
             return
         elapsed = int(time.time() - self._start)
-        self.elapsed_var.set(f"{elapsed} 秒")
+        self.elapsed_var.set(_t("elapsed_fmt").format(elapsed))
         self.root.after(1000, self._tick)
 
     def _drain_queue(self):
@@ -229,7 +370,7 @@ class ProgressWindow:
 
 
 def run_notebooklm(*args: str, timeout: int | None = None) -> str:
-    """运行 notebooklm CLI 命令，返回 stdout。"""
+    """Run a notebooklm CLI command and return stdout."""
     cmd = ["notebooklm", *args]
     try:
         result = subprocess.run(
@@ -242,7 +383,7 @@ def run_notebooklm(*args: str, timeout: int | None = None) -> str:
         )
     except subprocess.TimeoutExpired as exc:
         raise RuntimeError(
-            f"命令超时（{timeout}秒）: {' '.join(cmd)}"
+            _t("cmd_timeout").format(timeout, " ".join(cmd))
         ) from exc
     if result.returncode != 0:
         raise RuntimeError(
@@ -253,13 +394,11 @@ def run_notebooklm(*args: str, timeout: int | None = None) -> str:
 
 
 def _parse_json_output(raw: str) -> dict[str, Any]:
-    """尝试从 CLI 输出中解析 JSON（可能前面有非 JSON 文本）。"""
-    # 先整体尝试
+    """Try to parse JSON from CLI output (may have non-JSON text before it)."""
     try:
         return json.loads(raw.strip())
     except (json.JSONDecodeError, ValueError):
         pass
-    # 逐行找第一行以 { 开头的
     for line in raw.splitlines():
         line = line.strip()
         if line.startswith("{"):
@@ -280,7 +419,7 @@ def inspect(project_name: str) -> None:
     }, ensure_ascii=False, indent=2))
 
 
-# ==================== 核心：分离式任务流 ====================
+# ==================== Core: split-phase task flow ====================
 
 
 WAIT_SUPPORTED_TYPES = {
@@ -301,14 +440,14 @@ def _submit_generation(
     progress: ProgressWindow,
 ) -> str | None:
     """
-    阶段 1：提交生成任务，返回 task_id（可能为 None）。
-    仅在 CLI 支持时附带 --wait / --no-wait；不支持的子命令（如 mind-map）避免传入。
+    Phase 1: submit generation task, return task_id (may be None).
+    Only attach --wait / --no-wait when the CLI subcommand supports it.
     """
-    generate_cmd, generate_extra = GENERATE_TYPE_MAP[output_type]
+    generate_cmd, generate_extra = _build_generate_args(output_type)
 
     use_wait = output_type in WAIT_SUPPORTED_TYPES and output_type not in MEDIA_TYPES
     use_no_wait = output_type in WAIT_SUPPORTED_TYPES and output_type in MEDIA_TYPES
-    timeout_sec = _get_wait_timeout(output_type) + 60  # subprocess 超时比 CLI 超时多留余量
+    timeout_sec = _get_wait_timeout(output_type) + 60
 
     cmd_args = ["generate", generate_cmd, *generate_extra]
     if use_wait:
@@ -318,9 +457,9 @@ def _submit_generation(
     cmd_args.append("--json")
 
     progress.update(
-        phase="任务已提交，云端开始生成",
+        phase=_t("submitted"),
         status="submitting",
-        error="正在等待 CLI 返回任务信息…"
+        error=_t("waiting_cli")
     )
 
     raw = run_notebooklm(
@@ -333,15 +472,14 @@ def _submit_generation(
     status = task_info.get("status", "unknown")
 
     if task_id:
-        progress.update(phase="生成中", task_id=task_id, status=status, error="-")
+        progress.update(phase=_t("generating"), task_id=task_id, status=status, error="-")
     else:
         progress.update(
-            phase="任务已提交",
+            phase=_t("submitted"),
             status="submitted_no_task_id",
-            error="CLI 未返回 task_id，将尝试直接下载最新产物"
+            error=_t("no_task_id")
         )
 
-    # 如果用了 --wait 且 CLI 返回 completed，说明已经完成
     if use_wait and status == "completed":
         return task_id
 
@@ -355,18 +493,18 @@ def _wait_for_completion(
     progress: ProgressWindow,
 ) -> str:
     """
-    阶段 2：等待任务完成。
-    - 非媒体类型：使用 `notebooklm artifact wait`（可靠）
-    - 媒体类型：不使用 artifact wait（其内部 _is_media_ready 对 video
-      可能永远返回 False），改为由调用方在 _wait_and_download_media 处理
+    Phase 2: wait for task completion.
+    - Non-media types: use `notebooklm artifact wait` (reliable)
+    - Media types: skip artifact wait (internal _is_media_ready may
+      always return False for video), handled by _wait_and_download_media
     """
     timeout = _get_wait_timeout(output_type)
 
     progress.update(
-        phase="生成中（等待云端完成）",
+        phase=_t("generating_wait"),
         task_id=task_id,
         status="waiting",
-        error=f"超时阈值 {timeout} 秒"
+        error=_t("timeout_threshold").format(timeout)
     )
 
     try:
@@ -380,7 +518,7 @@ def _wait_for_completion(
         info = _parse_json_output(raw)
         final_status = info.get("status", "unknown")
         progress.update(
-            phase="生成完成" if final_status == "completed" else f"生成结束（{final_status}）",
+            phase=_t("gen_done") if final_status == "completed" else _t("gen_ended").format(final_status),
             status=final_status,
             error=info.get("error") or "-"
         )
@@ -389,16 +527,16 @@ def _wait_for_completion(
         err_msg = str(exc)
         if "超时" in err_msg or "timeout" in err_msg.lower():
             progress.update(
-                phase="等待超时",
+                phase=_t("wait_timeout"),
                 status="timeout",
-                error=f"本地等待超过 {timeout} 秒，云端任务可能仍在进行"
+                error=_t("wait_exceeded").format(timeout)
             )
             return "timeout"
         raise
 
 
 def _try_download(notebook_id: str, output_type: str, output_path: Path) -> bool:
-    """尝试下载最新产物，成功返回 True，失败返回 False。"""
+    """Try to download the latest artifact. Return True on success."""
     download_cmd, _ext, download_extra = DOWNLOAD_TYPE_MAP[output_type]
     try:
         run_notebooklm(
@@ -411,16 +549,16 @@ def _try_download(notebook_id: str, output_type: str, output_path: Path) -> bool
         return False
 
 
-MEDIA_POLL_INTERVAL = 15  # 媒体类型每 15 秒尝试一次下载
+MEDIA_POLL_INTERVAL = 15
 
-# ---------- JSON 类型需要下载后转译为可交互 HTML ----------
+# ---------- JSON types need post-download conversion to interactive HTML ----------
 TEXT_CONVERTABLE = {"quiz", "flashcards", "mind-map"}
 
 
 def _convert_json_to_html(json_path: Path, output_type: str) -> Path:
     """
-    读取 json_path，将 quiz / flashcards / mind-map 转为可交互的 .html 文件。
-    返回 HTML 文件路径（与原 JSON 同名但扩展名为 .html）。
+    Read json_path and convert quiz / flashcards / mind-map to interactive HTML.
+    Returns HTML file path (same name, .html extension).
     """
     data = json.loads(json_path.read_text(encoding="utf-8"))
     output_path = json_path.with_suffix(".html")
@@ -439,7 +577,7 @@ def _convert_json_to_html(json_path: Path, output_type: str) -> Path:
 
 
 def _html_escape(text: Any) -> str:
-    """转义 HTML 特殊字符，兼容 None 和非字符串输入。"""
+    """Escape HTML special characters, handles None and non-string input."""
     if text is None:
         return ""
     text = str(text)
@@ -455,12 +593,30 @@ def _html_escape(text: Any) -> str:
 # -------------------- quiz HTML --------------------
 
 def _render_quiz_html(data: dict) -> str:
-    title = _html_escape(data.get("title", "测验"))
+    title = _html_escape(data.get("title", _t("quiz_title_default")))
     questions = data.get("questions", [])
     questions_json = json.dumps(questions, ensure_ascii=False).replace("</", "<\\/")
 
+    s_submit = _t("submit_all")
+    s_retry = _t("retry")
+    s_q_counter = _t("q_counter")
+    s_hint = _t("hint_prefix")
+    s_correct = _t("correct_prefix")
+    s_wrong = _t("wrong_prefix")
+    s_accuracy = _t("accuracy")
+    html_lang = _t("html_lang")
+
+    # Build JS-safe counter template: e.g. "第 " + (qi+1) + " / " + len + " 题"
+    # Split the pattern on {} placeholders
+    qc_parts = s_q_counter.split("{}")
+    qc_js = "'" + _html_escape(qc_parts[0]) + "' + (qi + 1) + '" + _html_escape(qc_parts[1] if len(qc_parts) > 1 else "") + "' + questions.length + '" + _html_escape(qc_parts[2] if len(qc_parts) > 2 else "") + "'"
+
+    # Accuracy template
+    acc_parts = s_accuracy.split("{}")
+    acc_js = "\"" + _html_escape(acc_parts[0]) + "\" + Math.round(correct / questions.length * 100) + \"" + _html_escape(acc_parts[1] if len(acc_parts) > 1 else "") + "\""
+
     return f"""<!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="{html_lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -510,14 +666,17 @@ h1 {{ text-align: center; margin-bottom: 24px; font-size: 24px; color: #1a1a2e; 
 </div>
 <div id="questions"></div>
 <div class="btn-row">
-  <button class="btn btn-primary" id="submitBtn" onclick="submitAll()">提交全部答案</button>
-  <button class="btn btn-reset" id="resetBtn" onclick="resetAll()" style="display:none">重新答题</button>
+  <button class="btn btn-primary" id="submitBtn" onclick="submitAll()">{s_submit}</button>
+  <button class="btn btn-reset" id="resetBtn" onclick="resetAll()" style="display:none">{s_retry}</button>
 </div>
 </div>
 <script>
 const questions = {questions_json};
 let submitted = false;
 const container = document.getElementById("questions");
+const S_HINT = {json.dumps(s_hint, ensure_ascii=False)};
+const S_CORRECT = {json.dumps(s_correct, ensure_ascii=False)};
+const S_WRONG = {json.dumps(s_wrong, ensure_ascii=False)};
 
 questions.forEach((q, qi) => {{
   const card = document.createElement("div");
@@ -537,12 +696,12 @@ questions.forEach((q, qi) => {{
   const correctRationale = q.answerOptions[correctIdx] ? q.answerOptions[correctIdx].rationale || "" : "";
 
   card.innerHTML =
-    '<div class="question-num">第 ' + (qi + 1) + ' / ' + questions.length + ' 题</div>' +
+    '<div class="question-num">' + {qc_js} + '</div>' +
     '<div class="question-text">' + escapeHtml(q.question) + '</div>' +
     '<div class="options">' + optionsHtml + '</div>' +
     '<div class="feedback" id="fb' + qi + '">' +
-      (q.hint ? '<div class="hint">💡 提示：' + escapeHtml(q.hint) + '</div>' : '') +
-      '<div class="rationale">✅ 正确答案：' + correctLabel + '。' + escapeHtml(correctRationale) + '</div>' +
+      (q.hint ? '<div class="hint">' + S_HINT + escapeHtml(q.hint) + '</div>' : '') +
+      '<div class="rationale">' + S_CORRECT + correctLabel + '. ' + escapeHtml(correctRationale) + '</div>' +
     '</div>';
 
   container.appendChild(card);
@@ -590,7 +749,7 @@ function submitAll() {{
           wrongNote.style.color = "#dc2626";
           wrongNote.style.fontSize = "14px";
           wrongNote.style.lineHeight = "1.6";
-          wrongNote.innerHTML = "❌ 你选的 " + String.fromCharCode(65 + oi) + "：" + escapeHtml(selectedRationale);
+          wrongNote.innerHTML = S_WRONG + String.fromCharCode(65 + oi) + ": " + escapeHtml(selectedRationale);
           fb.insertBefore(wrongNote, fb.firstChild.nextSibling || null);
         }}
       }}
@@ -603,7 +762,7 @@ function submitAll() {{
   const summary = document.getElementById("summary");
   document.getElementById("score").textContent = correct + " / " + questions.length;
   document.getElementById("detail").textContent =
-    "正确率 " + Math.round(correct / questions.length * 100) + "%";
+    {acc_js};
   summary.style.display = "block";
   document.getElementById("submitBtn").style.display = "none";
   document.getElementById("resetBtn").style.display = "inline-block";
@@ -631,12 +790,13 @@ function resetAll() {{
 # -------------------- flashcards HTML --------------------
 
 def _render_flashcards_html(data: dict) -> str:
-    title = _html_escape(data.get("title", "抽认卡"))
+    title = _html_escape(data.get("title", _t("fc_title_default")))
     cards = data.get("cards", [])
     cards_json = json.dumps(cards, ensure_ascii=False).replace("</", "<\\/")
+    html_lang = _t("html_lang")
 
     return f"""<!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="{html_lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -670,21 +830,21 @@ h1 {{ margin-bottom: 16px; font-size: 22px; color: #1a1a2e; }}
 <div class="card-wrapper" id="cardWrapper" onclick="flipCard()">
   <div class="card" id="card">
     <div class="card-face card-front">
-      <span class="card-label">正面</span>
+      <span class="card-label">{_t("fc_front")}</span>
       <div class="card-text" id="frontText"></div>
     </div>
     <div class="card-face card-back">
-      <span class="card-label">背面</span>
+      <span class="card-label">{_t("fc_back")}</span>
       <div class="card-text" id="backText"></div>
     </div>
   </div>
 </div>
 <div class="controls">
-  <button class="btn btn-nav" id="prevBtn" onclick="prev()">&#9664; 上一张</button>
-  <button class="btn btn-flip" onclick="flipCard()">翻面</button>
-  <button class="btn btn-nav" id="nextBtn" onclick="next()">下一张 &#9654;</button>
+  <button class="btn btn-nav" id="prevBtn" onclick="prev()">{_t("fc_prev")}</button>
+  <button class="btn btn-flip" onclick="flipCard()">{_t("fc_flip")}</button>
+  <button class="btn btn-nav" id="nextBtn" onclick="next()">{_t("fc_next")}</button>
 </div>
-<div class="tip">点击卡片或按空格键翻面，按左右方向键切换</div>
+<div class="tip">{_t("fc_tip")}</div>
 <script>
 const cards = {cards_json};
 let idx = 0;
@@ -727,15 +887,15 @@ VENDOR_DIR = Path(__file__).parent / "vendor"
 
 
 def _render_mindmap_html(data: dict) -> str:
-    title = _html_escape(data.get("name", "思维导图"))
+    title = _html_escape(data.get("name", _t("mm_title_default")))
     data_json = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
+    html_lang = _t("html_lang")
 
-    # 读取内联的 vendor JS
     d3_js = (VENDOR_DIR / "d3.min.js").read_text(encoding="utf-8")
     markmap_js = (VENDOR_DIR / "markmap-view.min.js").read_text(encoding="utf-8")
 
     return f"""<!DOCTYPE html>
-<html lang="zh-Hans">
+<html lang="{html_lang}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -757,9 +917,9 @@ svg#markmap {{ width: 100vw; height: calc(100vh - 72px); display: block; }}
 <div class="header">
   <h1>{title}</h1>
   <div class="toolbar">
-    <button onclick="mm.fit()">适应窗口</button>
-    <button onclick="expandAll()">全部展开</button>
-    <button onclick="collapseAll()">全部收起</button>
+    <button onclick="mm.fit()">{_t("mm_fit")}</button>
+    <button onclick="expandAll()">{_t("mm_expand")}</button>
+    <button onclick="collapseAll()">{_t("mm_collapse")}</button>
   </div>
 </div>
 <svg id="markmap"></svg>
@@ -820,23 +980,22 @@ def _wait_and_download_media(
     progress: ProgressWindow,
 ) -> str:
     """
-    媒体类型（audio/video）专用：轮询 + 尝试下载。
-    绕过 notebooklm-py 的 _is_media_ready 检查问题。
+    Media types (audio/video): poll + attempt download.
+    Bypasses notebooklm-py's _is_media_ready check issue.
     """
     timeout = _get_wait_timeout(output_type)
     start = time.time()
 
     progress.update(
-        phase="云端生成中，等待产物就绪",
+        phase=_t("cloud_gen"),
         task_id=task_id or "-",
         status="polling",
-        error=f"每 {MEDIA_POLL_INTERVAL} 秒尝试下载，超时 {timeout} 秒"
+        error=_t("poll_info").format(MEDIA_POLL_INTERVAL, timeout)
     )
 
-    # 先等一段时间让云端有时间生成
     initial_wait = 30
     progress.update(
-        phase=f"云端生成中，{initial_wait} 秒后开始检查",
+        phase=_t("initial_wait").format(initial_wait),
         status="initial_wait",
     )
     time.sleep(initial_wait)
@@ -846,23 +1005,23 @@ def _wait_and_download_media(
         elapsed = time.time() - start
         if elapsed > timeout:
             progress.update(
-                phase="等待超时",
+                phase=_t("wait_timeout"),
                 status="timeout",
-                error=f"超过 {timeout} 秒仍未下载成功"
+                error=_t("poll_exceeded").format(timeout)
             )
             return "timeout"
 
         attempt += 1
         remaining = int(timeout - elapsed)
         progress.update(
-            phase=f"尝试下载（第 {attempt} 次）",
+            phase=_t("try_download").format(attempt),
             status=f"attempt_{attempt}",
-            error=f"剩余 {remaining} 秒"
+            error=_t("remaining").format(remaining)
         )
 
         if _try_download(notebook_id, output_type, output_path):
             progress.update(
-                phase="已完成",
+                phase=_t("completed"),
                 status="completed",
                 saved_to=str(output_path),
                 error="-"
@@ -870,9 +1029,9 @@ def _wait_and_download_media(
             return "completed"
 
         progress.update(
-            phase=f"产物尚未就绪，{MEDIA_POLL_INTERVAL} 秒后重试",
+            phase=_t("not_ready").format(MEDIA_POLL_INTERVAL),
             status=f"waiting_retry_{attempt}",
-            error=f"第 {attempt} 次下载未成功，云端可能仍在处理"
+            error=_t("download_fail").format(attempt)
         )
         time.sleep(MEDIA_POLL_INTERVAL)
 
@@ -883,10 +1042,10 @@ def _download_artifact(
     output_path: Path,
     progress: ProgressWindow,
 ) -> None:
-    """阶段 3：下载产物到本地（非媒体类型使用）。"""
+    """Phase 3: download artifact to local (non-media types)."""
     download_cmd, _ext, download_extra = DOWNLOAD_TYPE_MAP[output_type]
 
-    progress.update(phase="下载中", status="downloading", error="-")
+    progress.update(phase=_t("downloading"), status="downloading", error="-")
 
     run_notebooklm(
         "download", download_cmd, *download_extra, str(output_path),
@@ -895,7 +1054,7 @@ def _download_artifact(
     )
 
     progress.update(
-        phase="已完成",
+        phase=_t("completed"),
         status="completed",
         saved_to=str(output_path),
         error="-"
@@ -909,51 +1068,48 @@ def _generate_worker(
     output_type: str,
     output_path: Path,
 ) -> None:
-    """Worker 线程：按 提交→等待→下载 三阶段执行，通过 queue 更新 GUI。"""
+    """Worker thread: submit -> wait -> download, updating GUI via queue."""
     notebook_id = project["notebook_id"]
 
     try:
-        # 0. 设置当前 notebook
-        progress.update(phase="准备上下文", status="setting_notebook", error="-")
+        # 0. Set current notebook
+        progress.update(phase=_t("prep_context"), status="setting_notebook", error="-")
         run_notebooklm("use", notebook_id, timeout=30)
 
-        # 1. 提交生成
+        # 1. Submit generation
         task_id = _submit_generation(notebook_id, output_type, progress)
 
-        # 2. 等待 + 下载
+        # 2. Wait + download
         if output_type in MEDIA_TYPES:
-            # 媒体类型：轮询 + 尝试下载（绕过 _is_media_ready 的 bug）
             final_status = _wait_and_download_media(
                 notebook_id, task_id, output_type, output_path, progress
             )
 
             if final_status == "timeout":
                 progress.update(
-                    phase="超时未能下载",
+                    phase=_t("timeout_no_download"),
                     status="timeout",
-                    error="云端可能已完成但下载未成功，请在网页端确认后手动下载"
+                    error=_t("manual_download")
                 )
                 progress.close_later(delay_ms=8000)
                 result_holder["error"] = f"Media download timed out for {output_type}"
                 return
 
         else:
-            # 非媒体类型：--wait 已经在 submit 阶段等完了，直接下载
             _download_artifact(notebook_id, output_type, output_path, progress)
-            # quiz / flashcards / mind-map 下载后自动转译为可交互 HTML
             if output_type in TEXT_CONVERTABLE and output_path.exists() and output_path.suffix == ".json":
                 try:
                     html_path = _convert_json_to_html(output_path, output_type)
-                    output_path = html_path  # 主结果指向 HTML
+                    output_path = html_path
                     progress.update(
-                        phase="已转译为 HTML",
+                        phase=_t("convert_done"),
                         saved_to=str(html_path),
                         error="-"
                     )
                 except Exception as exc:
                     progress.update(
-                        phase="下载完成（转译失败）",
-                        error=f"转译失败：{exc}"
+                        phase=_t("convert_fail_phase"),
+                        error=_t("convert_fail").format(exc)
                     )
             final_status = "completed"
 
@@ -969,8 +1125,8 @@ def _generate_worker(
         }
 
     except Exception as exc:
-        progress.update(phase="失败", status="error", error=str(exc))
-        progress.close_later(delay_ms=8000)  # 错误时多停留几秒让用户看到
+        progress.update(phase=_t("failed"), status="error", error=str(exc))
+        progress.close_later(delay_ms=8000)
         result_holder["error"] = str(exc)
 
 
@@ -979,7 +1135,7 @@ def generate(project_name: str, output_type: str) -> None:
     project = find_project(project_name, registry)
     if not project:
         raise SystemExit(f"project not found: {project_name}")
-    if output_type not in GENERATE_TYPE_MAP or output_type not in DOWNLOAD_TYPE_MAP:
+    if output_type not in GENERATE_TYPE_BASE or output_type not in DOWNLOAD_TYPE_MAP:
         raise SystemExit(f"unsupported output type: {output_type}")
     if project.get("sync_status") != "synced" or not project.get("notebook_id"):
         raise SystemExit(f"project not synced to NotebookLM cloud: {project_name}")
@@ -987,7 +1143,7 @@ def generate(project_name: str, output_type: str) -> None:
     default_output_dir = KNOWLEDGE_ROOT / "notebooklm" / "output" / f"{project['project_name']}_output"
     output_dir = Path(project.get("output_dir") or str(default_output_dir))
     output_dir.mkdir(parents=True, exist_ok=True)
-    _generate_cmd, _generate_extra = GENERATE_TYPE_MAP[output_type]
+    _generate_cmd, _generate_extra = _build_generate_args(output_type)
     _download_cmd, ext, _download_extra = DOWNLOAD_TYPE_MAP[output_type]
     output_filename = build_output_filename(project["project_name"], output_type, ext)
     output_path = output_dir / output_filename
@@ -1002,10 +1158,8 @@ def generate(project_name: str, output_type: str) -> None:
     )
     worker.start()
 
-    # tkinter mainloop 必须在主线程运行（Windows 要求）
     progress.run()
 
-    # GUI 关闭后等 worker 结束
     worker.join(timeout=10)
 
     if "error" in result_holder:
@@ -1025,11 +1179,15 @@ def main() -> None:
     generate_parser = sub.add_parser("generate")
     generate_parser.add_argument("--project", required=True)
     generate_parser.add_argument("--type", required=True)
+    generate_parser.add_argument("--language", default="zh", choices=["zh", "en"],
+                                 help="UI and output language (default: zh)")
 
     args = parser.parse_args()
     if args.command == "inspect":
         inspect(args.project)
     elif args.command == "generate":
+        global _LANG
+        _LANG = args.language
         generate(args.project, args.type)
 
 
