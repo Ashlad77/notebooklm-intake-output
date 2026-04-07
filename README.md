@@ -171,3 +171,5 @@ python ...\intake.py --archive-duplicates
 ## 当前状态
 
 MVP 已完成，真实云端上传链路已跑通并通过 smoke test 和真实业务测试。
+
+目前仅为个人测试通过的版本，如使用中遇到问题欢迎随时[提 Issue](../../issues)，会不定期更新和维护。
