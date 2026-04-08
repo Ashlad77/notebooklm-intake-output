@@ -2,6 +2,11 @@
 
 **[English](README_EN.md)** | 中文
 
+> **一键复刻**：将对应的 `REPLICATION-GUIDE.md` 直接交给 OpenClaw，即可在新机器上自动完成全部部署，无需手动拷贝文件或配置路径。
+> intake 复刻文件：[REPLICATION-GUIDE.md](notebooklm-intake/REPLICATION-GUIDE.md) · output 复刻文件：[REPLICATION-GUIDE.md](notebooklm-output/REPLICATION-GUIDE.md)（复刻顺序：先 intake，再 output）
+
+---
+
 把本地资料批量同步到 [NotebookLM](https://notebooklm.google.com/) 云端，并从云端项目生成多种输出（报告、测验、思维导图、音频、视频等），全部通过本地脚本自动完成。
 
 > 本项目基于 [@teng-lin](https://github.com/teng-lin) 的 [notebooklm-py](https://github.com/teng-lin/notebooklm-py) 构建。该项目提供了 NotebookLM 的非官方 Python API 与 CLI，intake 和 output 的整个云端通信链路均依赖其接口。
