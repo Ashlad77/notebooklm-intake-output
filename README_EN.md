@@ -2,6 +2,11 @@
 
 English | **[中文](README.md)**
 
+> **One-command replication**: Hand the corresponding `REPLICATION-GUIDE_EN.md` directly to OpenClaw and it will deploy everything automatically on a new machine — no manual file copying or path configuration needed.
+> intake guide: [REPLICATION-GUIDE_EN.md](notebooklm-intake/REPLICATION-GUIDE_EN.md) · output guide: [REPLICATION-GUIDE_EN.md](notebooklm-output/REPLICATION-GUIDE_EN.md) (replicate intake first, then output)
+
+---
+
 Batch-sync local materials to [NotebookLM](https://notebooklm.google.com/) cloud and generate various outputs (reports, quizzes, mind maps, audio, video, etc.) from cloud projects — all automated via local scripts.
 
 > Built on top of [@teng-lin](https://github.com/teng-lin)'s [notebooklm-py](https://github.com/teng-lin/notebooklm-py), which provides an unofficial Python API and CLI for NotebookLM. Both intake and output rely entirely on its interface for cloud communication.
